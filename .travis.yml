@@ -1,0 +1,59 @@
+sudo: required
+dist: xenial
+addons:
+  apt:
+    sources:
+    - sourceline: 'ppa:jonathonf/texlive'
+    packages:
+    - tree
+    - texlive-latex-extra
+    - texlive-latex-recommended
+    - texlive-fonts-recommended
+    - texlive-xetex
+    - lmodern
+    - fonts-freefont-ttf
+    - fonts-freefont-otf
+    - fonts-inconsolata
+    - unifont
+    - fonts-texgyre
+
+language: haskell
+
+ghc:
+  - "8.4"
+
+cache:
+  directories:
+    - $HOME/.ghc
+    - $HOME/.cabal
+
+env:
+  global:
+    - PANDOC="$HOME/.pandoc"
+    - PANDOC_DEB="https://github.com/jgm/pandoc/releases/download/2.5/pandoc-2.5-1-amd64.deb"
+
+install:
+  - cabal install pandoc-types
+
+  - mkdir -p "$PANDOC"
+  - curl -L https://github.com/jgm/pandoc/releases/download/2.5/pandoc-2.5-1-amd64.deb > "$PANDOC/pandoc.deb"
+  - dpkg -x "$PANDOC/pandoc.deb" "$PANDOC"
+  - export PATH="$PANDOC/usr/bin:$PATH"
+
+
+script:
+  - make
+  - mkdir out/
+  - touch out/nojekyll
+  - mv haskell-via-sokoban.html out/index.html
+  - mv files out/
+
+deploy:
+  provider: pages
+  local-dir: out
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: false
+  fqdn: haskell-via-sokoban.nomeata.de
+  on:
+    branch: master

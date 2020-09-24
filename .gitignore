@@ -1,0 +1,10 @@
+*.bak
+slides.html
+haskell-via-sokoban.md
+haskell-via-sokoban.html
+*.hi
+*.o
+write-files
+files/
+.ghc.environment*
+pandoc
