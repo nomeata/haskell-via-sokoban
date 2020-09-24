@@ -203,18 +203,9 @@ Basic Haskell
 =============
 
 So let us see some Haskell code. On CodeWorld, we generally start with this
-code ([open on CodeWorld](https://code.world/haskell#PvoZv8n9Mtp5kOMGDszKEcQ)):
+code ([open on CodeWorld](EDIT(code/blank.hs))
 
-```haskell
-{-# LANGUAGE OverloadedStrings #-}
-import CodeWorld
-
-ourPicture :: Picture
-ourPicture = blank
-
-main :: IO ()
-main = drawingOf ourPicture
-```
+LISTING(code/blank.hs)
 
 Most of these lines are not interesting initially, and will be understood fully later on.
 If we run this, using the green “Run” button, or alternatively pressing
@@ -232,7 +223,7 @@ ourPicture = solidCircle 1
 
 We now see a solid black circle of radius 1:
 
- <iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;hash=PGPxJJHfirP0_D8y8lOrQLw"></iframe>
+RUN(code/circle.hs)
 
 What happens here?  This code declares a variable with name `ourPicture` with
 type `Picture` (“`::`” is pronounced “has type”), and defines its value to be
@@ -385,7 +376,7 @@ otherwise the compiler would think we want to use the binary subtraction
 operator.
 
 Our code line got too long, so let us name some of the components and give them
-their own names, and while we are at it, draw a frame around our traffic light ([open on CodeWorld](https://code.world/haskell#PghsHgwl_rJUmdcCvOPAR-w)):
+their own names, and while we are at it, draw a frame around our traffic light ([open on CodeWorld](EDIT(code/trafficlight.hs))):
 
 ```haskell
 botCircleGreen = colored green (translated 0 (-1.5) (solidCircle 1))
@@ -397,7 +388,7 @@ ourPicture :: Picture
 ourPicture = trafficLight
 ```
 
- <iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;hash=PghsHgwl_rJUmdcCvOPAR-w"></iframe>
+RUN(code/trafficlight.hs)
 
 Defining functions
 ------------------
@@ -471,7 +462,7 @@ main :: IO ()
 main = animationOf trafficController
 ```
 
-From looking at the code ([open on CodeWorld](https://code.world/haskell#Ph3vruxsOVmcnYG0D2NGG0Q)) we notice
+From looking at the code ([open on CodeWorld](EDIT(code/trafficController.hs))) we notice
 
  * Instead of `drawingOf` we use `animationOf` in the main entry point of the
    program. Its parameter is no longer simply a value of type `Picture`, but
@@ -488,7 +479,7 @@ From looking at the code ([open on CodeWorld](https://code.world/haskell#Ph3vrux
  * We are now working with numbers here, so let us take a quick detour into
    Haskell's numeric types.
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;hash=Ph3vruxsOVmcnYG0D2NGG0Q"></iframe>
+RUN(code/trafficController.hs)
 
 Numerical Types
 ---------------
@@ -584,7 +575,7 @@ programming and once you are done with this course, thinking about recursion is
 going to be the most natural thing in the world.
 
 So lets say we want to put multiple traffic lights next to each other. We could
-do it this way ([open on CodeWorld](https://code.world/haskell#PNApyEJW7C_zshSxdde3eIw)):
+do it this way ([open on CodeWorld](EDIT(code/multiple-trafficlights.hs))):
 
 ```haskell
 lights :: Integer -> Picture
@@ -596,7 +587,7 @@ ourPicture = lights 3
 main = drawingOf ourPicture
 ```
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;hash=PNApyEJW7C_zshSxdde3eIw"></iframe>
+RUN(code/multiple-trafficlights.hs)
 
 The function `lights` is again defined over multiple cases, by pattern-matching
 on the number of lights to draw. If we should draw no light, we do not draw
@@ -611,7 +602,7 @@ What happens if I try to draw `lights (-1)`? What if I swap the arguments to `(&
 Of course, there is a lot of logic involved in `lights` that that is not
 specific to traffic lights, so this does call out for some abstraction. We will
 abstract out both the picture to draw, and how far we shift to the right in
-every step ([open on CodeWorld](https://code.world/haskell#Pb3XJ3yim9fyIbLeIoaLMDw)):
+every step ([open on CodeWorld](EDIT(code/multiple-trafficlights-spread.hs))):
 
 ```haskell
 spread :: Picture -> Double -> Integer -> Picture
@@ -628,7 +619,7 @@ replace the binding by `_`, indicating that you do not want to name this
 parameter.
 
 A recursive function may call itself more than once, and this allows for nice
-drawings [open on CodeWorld](https://code.world/haskell#Pt35LixP8QB5edtSH06YjAA):
+drawings [open on CodeWorld](EDIT(code/tree.hs)):
 
 ```haskell
 tree :: Integer -> Picture
@@ -643,9 +634,9 @@ We will get to the meaning of the lists with brackets and the pairs with
 parentheses next lession, for now just consider this a way of drawing a line
 from one point to another.
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;hash=Pt35LixP8QB5edtSH06YjAA"></iframe>
+RUN(code/tree.hs)
 
-(Do you want to see the tree folding and unfolding? Requires only minor changes to the code… check out [this animation](https://code.world/haskell#PrrDoZkX8T-a3E9x0rXVydQ).)
+(Do you want to see the tree folding and unfolding? Requires only minor changes to the code… check out [this animation](EDIT(code/tree-folding.hs)).)
 
 Code Comments
 =============

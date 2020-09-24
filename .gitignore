@@ -1,4 +1,6 @@
 *.bak
+code/*.hash
+code/*.dhash
 slides.html
 haskell-via-sokoban.md
 haskell-via-sokoban.html

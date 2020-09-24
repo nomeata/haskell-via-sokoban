@@ -4,7 +4,8 @@ SHELL=/bin/bash
 
 haskell-via-sokoban.md: $(sort $(wildcard 0*.md))
 	rm -f $@
-	cat $^ > $@
+	./subst.pl $^ > $@.tmp
+	mv $@.tmp $@
 	chmod -w $@
 
 haskell-via-sokoban.html: haskell-via-sokoban.md pandoc.css solution.css solution.js inline-code.css
@@ -29,3 +30,6 @@ haskell-via-sokoban.html: haskell-via-sokoban.md pandoc.css solution.css solutio
 #	mkdir files
 #	./pandoc -t json $< | ./write-files
 #	cd files; tree -H '.' -L 1 --noreport --charset utf-8 > index.html
+
+clean:
+	rm -f haskell-via-sokoban.md
