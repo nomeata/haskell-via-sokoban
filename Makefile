@@ -18,11 +18,11 @@ haskell-via-sokoban.html: haskell-via-sokoban.md pandoc.css solution.css solutio
 	  --css pandoc.css \
 	  --css solution.css \
 	  --css inline-code.css \
-	  --filter ./label-exercises \
 	  --write=html5 \
 	  -V lang=en-US \
 	  $< -o $@
 
+#	  --filter ./label-exercises \
 
 # files: haskell-via-sokoban.md write-files
 #	rm -rf files

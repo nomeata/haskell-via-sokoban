@@ -1,4 +1,4 @@
-Exercises: Graph algorithms {.exercises}
+✍️ Exercises: Graph algorithms {.exercises}
 ===========================
 
 Import the list of mazes

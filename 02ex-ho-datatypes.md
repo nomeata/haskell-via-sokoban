@@ -1,4 +1,4 @@
-Exericses {.exercises}
+✍️ Exericses {.exercises}
 =========
 
 You are free to use the [code from above](https://code.world/haskell#PTU3hQlDx2i-jo0IFldfY8Q) and from your own

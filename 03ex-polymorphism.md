@@ -1,4 +1,4 @@
-Exercises: Build Sokoban {.exercises}
+✍️ Exercises: Build Sokoban {.exercises}
 ========================
 
 The goal of this set of exericses is simply: Implement Sokoban!

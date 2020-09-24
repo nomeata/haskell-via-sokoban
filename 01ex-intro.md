@@ -1,4 +1,4 @@
-Exericses {.exercises}
+✍️ Exericses {.exercises}
 =========
 
 When solving the exercises, strive to create not just code that works,
