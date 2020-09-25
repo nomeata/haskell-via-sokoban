@@ -2,9 +2,15 @@ all: haskell-via-sokoban.html
 
 SHELL=/bin/bash
 
-haskell-via-sokoban.md: $(sort $(wildcard 0*.md))
+SECTIONS=$(sort $(wildcard 0*.md))
+CODE=$(wildcard code/*.hs)
+
+code/%.dhash code/%.hash: code/%
+	./upload.sh $<
+
+haskell-via-sokoban.md: $(SECTIONS) $(patsubst %,%.hash,$(CODE))
 	rm -f $@
-	./subst.pl $^ > $@.tmp
+	./subst.pl $(SECTIONS) > $@.tmp
 	mv $@.tmp $@
 	chmod -w $@
 

@@ -15,8 +15,7 @@ prettier and more shiny. This is all good as long as you do not
 effort in that direction contributes towards your participation score.
 
 All homework this week can be performed within the web IDE
-<https://code.world/haskell>. In fact, it is recommended that you start
-with <https://code.world/haskell#Po6Ok3j0o3TiYqZWUJ-8I-Q>.
+<https://code.world/haskell>.
 
 Traffic lights
 --------------
@@ -27,14 +26,13 @@ an amber light in the middle.
 Change the code to include the yellow light, and animate a correct sequence
 of traffic light signalling:
 
-
  * a long green phase
  * a short amber phase
  * a long red phase
  * a short red and amber phase[^1]
  * back to green
 
-The resulting program should be called `exercise1`.
+Yon can start with [the code from above](EDIT(code/trafficController.hs)).
 
 <iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;dhash=DkA91kScdnqBMXnuWMWDZTg"></iframe>
 
@@ -46,7 +44,7 @@ The resulting program should be called `exercise1`.
 Blooming trees
 --------------
 
-In the class, we defined a tree, but it looks a bit dire. The code was
+In the class, we defined a tree, but it looks a bit dire. Here is [the code again](EDIT(code/tree.hs)):
 
 ```haskell
 tree :: Integer -> Picture
@@ -66,8 +64,6 @@ intricate with petals and better colors and whatnot.
 In your code, modify `tree` to be *abstact* in the actual shape of the
 blossoms. This way, the `tree` function itself is independent of time.
 Do *not* pass the time paramter to the `tree` function!
-
-The resulting program should be called `exercise2`.
 
 <iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;dhash=DmGMoeJTPisJo8EfTOZA7Nw"></iframe>
 
@@ -101,7 +97,7 @@ squares that may occur:
 4.  Boxes
 
 After this exercise, we will have the necessary code to draw a sokoban
-level.
+level. You can use [this code](EDIT(code/sokoban-ex1.hs) to get started.
 
 -   Create a functions `wall`, `ground`, `storage` and `box` of type
     `Picture`, which draw the corresponding thing, with a width and
@@ -149,7 +145,7 @@ level.
     another, which in turn calls a second recursive function, which then draw
     each element in that row.
 
--   Define `exercise3` to be drawing of `pictureOfMaze`.
+-   Define `main` to be drawing of `pictureOfMaze`.
 
 <iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;dhash=DOxforVvDsZ0V2pDubEQPwA"></iframe>
 
