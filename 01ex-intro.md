@@ -32,9 +32,9 @@ of traffic light signalling:
  * a short red and amber phase[^1]
  * back to green
 
-Yon can start with [the code from above](EDIT(code/trafficController.hs)).
+Yon can start with [the traffic light code from above](EDIT(code/trafficController.hs)), and the result could look like this:
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;dhash=DkA91kScdnqBMXnuWMWDZTg"></iframe>
+RUN(code/trafficController-solution.hs)
 
 
 [^1]:
@@ -65,7 +65,9 @@ In your code, modify `tree` to be *abstact* in the actual shape of the
 blossoms. This way, the `tree` function itself is independent of time.
 Do *not* pass the time paramter to the `tree` function!
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;dhash=DmGMoeJTPisJo8EfTOZA7Nw"></iframe>
+The result could look like this:
+
+RUN(code/tree-bloom.hs)
 
 Sokoban tiles
 -------------
@@ -147,8 +149,9 @@ level. You can use [this code](EDIT(code/sokoban-ex1.hs) to get started.
 
 -   Define `main` to be drawing of `pictureOfMaze`.
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;dhash=DOxforVvDsZ0V2pDubEQPwA"></iframe>
+The result could look like this:
 
+RUN(code/sokoban-ex1-sol.hs)
 
 [^2]: Using numbers here is not good style, and we will fix that next
     week.

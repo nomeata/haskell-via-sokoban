@@ -9,7 +9,7 @@ solution: https://code.world/haskell#PWc3Dtw35PArCBLII3HtK5w
 Higher Order Functions
 =======================
 
-The solution for last week's homework might have been solved with this code, which draws a row and then draws a column:
+The solution for the maze-drawing exercise might have been solved with this code, which draws a row and then draws a column:
 
 ```haskell
 pictureOfMaze :: Picture
@@ -32,14 +32,13 @@ doing very similar things. In prose, what they are
 doing is “21 times, do something similar each time, but varying with the
 count”. They differ in two aspects:
 
-* The `something` is different: it is calling `drawCols` in the one case, and
+* The “something” is different: it is calling `drawCols` in the one case, and
   `drawTileAt` in the other case.
 * For `drawCols`, there is an extra argument that is passed around to the “something”.
 
 I promised that Haskell is a language with good abstractions, so it should be possible to abstract over this pattern. So lets give it a try:
 
 ```haskell
-
 draw21times something = helper something (-10)
 
 helper something 11 = blank
@@ -50,14 +49,14 @@ drawRow = draw21times drawCol
 drawCol = drawTileAt ? ?
 ```
 
-Now we are stuck: In the definition of `drawATiles`, we need to know the
+Now we are stuck: In the definition of `drawCol`, we need to know the
 current row and column number, but we do not have that! If we would write `n`
 (which maybe a perl programmer from the last century would try here), we would
 get an error about a variable being not in scope. And even if we somehow could
 access the `n` there, which one would it be – `draw21times` is run twice here!
 
 So the `helper` needs to pass down the `n` to `something`. And similarly,
-`drawRow` has to tell `drawCol` what row it should draw:
+`drawRow` has to tell `drawCol` what row it is part of:
 
 
 ```haskell
@@ -93,7 +92,7 @@ The type signature of `draw21times` again has two arrows, but it does *not* take
 Similarly, the type signature of `helper` says that there are *two* arguments, the first being a function taking *one* argument, and the second being simply an `Integer`.
 
 The types of `drawRow` and `drawCol` are again straight-forward function types.
-Note that the type of `drawRow` is precisely the type of of the argument to
+Note that the type of `drawRow` is precisely the type of the argument to
 `draw21times` – and therefore we can pass `drawRow` as an argument to `draw21times`.
 
 What you see here is an instance of an **Higher Order Function**, i.e. a function that takes other functions as arguments. It is a central idea in functional programming and one main reason for the great abstraction possibilities in Haskell.
@@ -136,7 +135,7 @@ The next code smell is the `helper` function. It really is a helper to
 `draw21times`, so it would be nice to have this function only available within
 `draw21times`. To do so, we use local definitions. They come in two varieties:
 
- 1.  As `let`-bindings:
+ 1. As `let`-bindings:
 
     ```haskell
     draw21times :: (Integer -> Picture) -> Picture
@@ -250,22 +249,22 @@ pictureOfMaze = draw21times (\r -> draw21times (\c -> drawTileAt r c))
 
 Higher order functions, local functions and lambda expressions allow for very concise, but yet readable code. Use it!
 
-You can see the [final code on CodeWorld](https://code.world/haskell#PeAw6a9gel9QEvOyFRS8sZA).
+You can see the [final code on CodeWorld](EDIT(code/ho-maze.hs)).
 
 Data types
 ==========
 
 On to the next topic, and again we will motivate and introduce it by adressing some wart
-in the code from last weeks homework.
+in the code from the last set of exercises.
 
 The functions `drawTile` and `maze` designate the different types of tiles by a
 number. That calls for trouble: It is easy to mix them up, extending the list
 of tiles is error-prone, as you might forget to extend the code somewhere else
 that handles the numbers.
 
-The problem is that `Integers` are not a a suitable type to represent types: There are too many of them, and their meaning is implicit.
+The problem is that `Integers` are not a a suitable type to represent tiles: There are too many of them, and their meaning is implicit.
 
-So we want a type that is tight, i.e. large enough to encompass all tiles we want to represent, but no more, and explicit, i.e. the meaning of a value of such a type is clear.
+So we want a type that is _tight_, i.e. large enough to encompass all tiles we want to represent, but no more, and _explicit_, i.e. the meaning of a value of such a type is clear.
 
 So we simply introduce such a type:
 
@@ -282,7 +281,7 @@ constructor).
 The new type `Tile` now consists of exactly these five constructors as values, no more and
 no less. So the type is tight. And further more, every value is self-explanatory.
 
-We can return them in `maze`, and pattern match in `drawTile`, just like with numbers ([open on CodeWorld](https://code.world/haskell#P-M5f3eyKkHqrbfW2KObbKQ)):
+We can return them in `maze`, and pattern match in `drawTile`, just like with numbers ([open on CodeWorld](EDIT(code/data-type-maze.hs))):
 
 ```haskell
 drawTile :: Tile -> Picture
@@ -384,7 +383,7 @@ adjacentCoord L (C x y) = C (x-1) y
 adjacentCoord D (C x y) = C  x   (y-1)
 ```
 
-That was a lot of coding without seeing anything. Let us try it out ([also on CodeWorld](https://code.world/haskell#PAp1po1qT2i8Dmim1XCGfWw)):
+That was a lot of coding without seeing anything. Let us try it out ([also on CodeWorld](EDIT(code/more-data-types-maze.hs))):
 
 ```haskell
 someCoord :: Coord
@@ -393,7 +392,7 @@ someCoord = adjacentCoord U (adjacentCoord U (adjacentCoord L initialCoord))
 main = drawingOf (atCoord someCoord pictureOfMaze)
 ```
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;hash=PAp1po1qT2i8Dmim1XCGfWw"></iframe>
+RUN(code/more-data-types-maze.hs)
 
 
 Pure Interaction
@@ -411,30 +410,24 @@ Interaction on CodeWorld
 
 This functionality is provided in CodeWorld by the following function, which has quite a large type signature:
 ```haskell
-interactionOf :: world ->
-                (Double -> world -> world) ->
-                (Event -> world -> world) ->
-                (world -> Picture) ->
-                IO ()
+activityOf :: world ->
+              (Event -> world -> world) ->
+              (world -> Picture) ->
+              IO ()
 ```
 
 Its type signature mentions the type `world`. This is not a specific type, but rather a type variable. We’ll get to that later; all we need to know for now is that this type can be any type we want it to be. This type contains the state of the program. In our case, it is simply a `Coord`.
 
-The function `interactionOf` takes four arguments:
+The function `interactionOf` takes three arguments:
 
  1. An initial state.
- 2. A function modifying the state if a certain amount of time (given as a the
-    first argument) has passed.
- 3. A function modifying the state if a certain input even thas happened.
- 4. A function to draw a picture according to the current state.
+ 3. A function modifying the state if a certain event has happened. An event is either some action by the user, or simply the passing of time.
+ 3. A function to draw a picture according to the current state.
 
-Let us try to use this function, in a simple way ([open on CodeWorld](https://code.world/haskell#PpjfIR2NrgPeBJQKfg_63Kg)):
+Let us try to use this function, in a simple way, where we simply move the maze up on each event ([open on CodeWorld](EDIT(code/activity-test.hs))):
 
 ```haskell
-main = interactionOf initialCoord handleTime handleEvent drawState
-
-handleTime :: Double -> Coord -> Coord
-handleTime _ c = c
+main = activityOf initialCoord handleEvent drawState
 
 handleEvent :: Event -> Coord -> Coord
 handleEvent e c = adjacentCoord U c
@@ -443,9 +436,9 @@ drawState :: Coord -> Picture
 drawState c = atCoord c pictureOfMaze
 ```
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;hash=PpjfIR2NrgPeBJQKfg_63Kg"></iframe>
+RUN(code/activity-test.hs)
 
-That does … something. But as soon as we move the mouse over the picture, it disappears. Which makes sense, as mouse movements are also events.
+That does … something. But very quickly, the maze disappears. Which makes sense, as the passing of time and mouse movements are also events.
 
 Events
 ------
@@ -455,12 +448,14 @@ So we need to look at the `Event` type. According to the documentation, it is a 
 ```haskell
 data Event = KeyPress Text
            | KeyRelease Text
-           | MousePress MouseButton Point
-           | MouseRelease MouseButton Point
-           | MouseMovement Point
+           | PointerPress Point
+           | PointerRelease Point
+           | PointerMovement Point
+           | TextEntry Text
+           | TimePassing Double
 ```
 
-There are five constructors, for different kind of events. We care about `KeyPress` events. This constructor has an argument, which is a `Text`. We have not seen this type before, but we can guess what it means. So let us handle this ([open on CodeWorld](https://code.world/haskell#Px4XRGfE1Aw0GCEDKSDVAAw)):
+There are seven constructors, for different kind of events. We care about `KeyPress` events. This constructor has an argument, which is a `Text`. We have not seen this type before, but we can guess what it means. So let us handle this ([open on CodeWorld](EDIT(code/activity-keypress.hs))):
 
 ```haskell
 handleEvent :: Event -> Coord -> Coord
@@ -472,9 +467,9 @@ handleEvent (KeyPress key) c
 handleEvent _ c      = c
 ```
 
-(From now on, make sure you have `{-# LANGUAGE OverloadedStrings #-}` on top of the file, or you will get strange error messages.)
+From now on, make sure you have the line `{-# LANGUAGE OverloadedStrings #-}` at the very top of your file, or you will get strange error messages.
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;hash=Px4XRGfE1Aw0GCEDKSDVAAw"></iframe>
+RUN(code/activity-keypress.hs)
 
 And there we go, we can move the maze around! (You might have to click on the embedded picture before it reacts to your key presses.)
 
@@ -524,6 +519,6 @@ We then split `handleEvent` into `parseEvent`
 
 
 With that knowledge (and some cleverness) you should already be able to write a
-fully functional Sokoban, although we will use this week's homework for some
-more prelimaries, and learn more next week that will help us finish the game.
+fully functional Sokoban, although we will use the next set of exercises for some
+more prelimaries, and then learn a bit more that will help us finish the game.
 

@@ -13,8 +13,9 @@ do
     perl -0777 -n -p -e 's/\n$//; s/\n/\r\n/g' "$file" > "$file.dos"
     json="$(curl -S -s -F "mode=$mode" -F "source=<$file.dos" ${url}compile)"
     rm -f "$file.dos"
-    echo "$json" | jq -r .hash > "$file.hash"
-    echo "$json" | jq -r .dhash > "$file.dhash"
+    echo "$json" | jq -j .hash > "$file.hash"
+    echo "$json" | jq -j .dhash > "$file.dhash"
     echo "${url}$mode#$(cat "$file.hash")"
+    curl -S -s -F "mode=$mode" -F "hash=<$file.hash" ${url}runMsg
 done
 

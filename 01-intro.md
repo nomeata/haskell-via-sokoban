@@ -474,7 +474,7 @@ From looking at the code ([open on CodeWorld](EDIT(code/trafficController.hs))) 
  * `otherwise` happens to be a defined to be `True`. It just reads better than
    writing `True` here.
  * There is a function called `round` and `mod`. `round` is used in the normal,
-   infix way, but we turned `mod` into an operator by putting backticks around
+   prefix way, but we turned `mod` into an operator by putting backticks around
    it (`` `mod` ``). You can do that two any function called with two arguments.
  * We are now working with numbers here, so let us take a quick detour into
    Haskell's numeric types.
@@ -624,7 +624,7 @@ drawings [open on CodeWorld](EDIT(code/tree.hs)):
 ```haskell
 tree :: Integer -> Picture
 tree 0 = blank
-tree n = path [(0,0),(0,1)] & translated 0 1 (
+tree n = polyline [(0,0),(0,1)] & translated 0 1 (
     rotated (pi/10) (tree (n-1)) & rotated (- pi/10) (tree (n-1)))
 
 main = drawingOf (tree 8)
