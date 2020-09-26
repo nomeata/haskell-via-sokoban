@@ -3,11 +3,11 @@
 Type classes
 ============
 
-In last week's homework, you have developed a working implementation of Sokoban. The resulting code might look like [this example solution](https://code.world/haskell#PubDDSw-wNxzTsQt1SxJ6GA).
+In the last set of exercises, you have developed a working implementation of Sokoban. The resulting code might look like [this example solution](EDIT(code/03ex-complete.hs)).
 
 While implementing it, some of you might have wished to be able to use the equality operator (`(==)`) on your own data types, such as `Coord` or `Tile`. But you could not and had to work around it using `case` expressions, helper functions or functions like `eqCoord`.
 
-But you may have already observed that `(==)` can be used not just types: `Integer`, `Double`, `Bool` (although you should not use it with `Double`!). And I claimed that `Bool` is not special. So there must be a way of using `(==)` with, say, `Coord`.
+But you may have already observed that `(==)` can be used with multiple types: `Integer`, `Double`, `Bool` (although you should not use it with `Double`!). And I claimed that `Bool` is not special. So there must be a way of using `(==)` with, say, `Coord`.
 
 Maybe the error message that we see if we try to use it, can shed some light on this:
 ```
@@ -16,9 +16,7 @@ No instance for (Eq Coord) arising from a use of ‘==’
 
 It seems that we need some kind of instance. Before we talk about instances, though, we have to talk about classes.
 
-I’ll use the Haskell interpreter to do a bit exploration. I would have used the online docs, but a [bug](https://github.com/haskell/haddock/issues/549) in the tool that generates the documentation unfortunately gets in the way right now. You will learn about the Haskell interpreter eventually as well.
-
-I can ask for the type of `(==)`:
+You can use the Hoogle search engine to [search for `==`](https://hoogle.haskell.org/?hoogle=%3D%3D), and the first entry will tell you about the type of the `(==)` operator:
 ```
 Prelude> :t (==)
 (==) :: Eq a => a -> a -> Bool
@@ -28,39 +26,32 @@ On the right of the `=>` arrow, we have the function type that we know: The oper
 The Eq type class
 -----------------
 
-We can find out more about this `Eq`, using the interpreter:
+If you click on that link, you’ll reach the the documentation of
+[the `Eq` class](https://hackage.haskell.org/package/base-4.14.0.0/docs/Prelude.html#t:Eq). Among other things, you’ll learn about the type class head, namely
 ```
-Prelude> :info Eq
 class Eq a where
+```
+and its methods, namely
+```
   (==) :: a -> a -> Bool
   (/=) :: a -> a -> Bool
-	-- Defined in ‘GHC.Classes’
-instance Eq Integer
-  -- Defined in ‘integer-gmp-1.0.0.0:GHC.Integer.Type’
-instance (Eq a, Eq b) => Eq (Either a b)
-  -- Defined in ‘Data.Either’
-instance Eq a => Eq [a] -- Defined in ‘GHC.Classes’
-instance Eq Word -- Defined in ‘GHC.Classes’
+```
+
+The documentation obscures this a bit, but if you put the two code snippets above together you get what you would write to define such a class yourself.
+
+Note that ethods are given with *just* their type signature – the
+implementation will be in the class instances.  Also, the type is given without
+the `Eq` constraint that you saw in the type signature for `(==)` earlier; this is added automatically.
+
+The documentation also shows that there are many many _instances_ for this class:
+```
+instance Eq Bool
+instance Eq Char
+instance Eq Double
+…
+instance Eq a => Eq [a]
 …
 ```
-We have to scroll up to get to the interesting bits:
-
-  * The first three lines are the definition of the `Eq` class, as you would
-    write them in your code, if you would define your own type class. Here is a
-    rough overview of the components.
- 
-    A type class definition gives the class a name (here `Eq`), applied to to a
-    type variable.
-    It then contains any number of *methods*. Methods are given with *just*
-    their type signature – the implementation will be in the class instances.
-    Also, the type is given without the `Eq` constraint in the type signature;
-    this is added automatically.
- 
-    We see that the `Eq` type class has two methods: `(==)` and `(/=)`.
- 
-  * Then, a number of lines starting with `instance` are printed. These tell us
-    what instances already exists: For example for `Integer`, as expeced. These
-    are not the complete instances, because instances come with code.
 
 The `Eq Coord` instanace
 ------------------------
