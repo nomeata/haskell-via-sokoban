@@ -4,13 +4,12 @@ Polymorphism
 Now, we will explore how polymorphism allows for yet more abstract and
 compositional thinking, and how to apply wholemeal programming.
 
-Polymorphism is a property of a function that it can work with any type. We have seen this in the type signature of `interactionOf`:
+Polymorphism is a property of a function that it can work with any type. We have seen this in the type signature of `activityOf`:
 ```haskell
-interactionOf :: world ->
-                 (Double -> world -> world) ->
-		 (Event -> world -> world) ->
-		 (world -> Picture) ->
-		 IO ()
+activityOf :: world ->
+              (Event -> world -> world) ->
+              (world -> Picture) ->
+              IO ()
 ```
 
 This function is polymorphic becaues the type `world` is arbitrary, and can be
@@ -70,7 +69,7 @@ Why is parametricity important?
     …
     ```
 
-    In-class exercise: What can you know about a function with this type:
+    Try yourself: What can you know about a function with this type:
     ```haskell
     riddle3 :: a -> a -> a
     …
@@ -100,17 +99,17 @@ Polymorphic Data Types
 Not only functions can be polymorphic, but also data types. Let us motivate
 that by an example.
 
-In last week's homework ([example solution](https://code.world/haskell#PWc3Dtw35PArCBLII3HtK5w)), we created a variant of `interactionOf` that would
-allow the game to be reset (and it was indeed polymorphic). Let us do something similar and create a variant of `interactionOf` that would initially show a startup-screeen, and start the game proper only when the space key is pressed.
+In last week's homework ([example solution](EDIT(code/ho-ex-3.hs))), we created a variant of `activityOf` that would
+allow the game to be reset (and it was indeed polymorphic). Let us do something similar and create a variant of `activityOf` that would initially show a startup-screeen, and start the game proper only when the space key is pressed.
 
 We define a very simple start screen:
 
 ```haskell
 startScreen :: Picture
-startScreen = scaled 3 3 (text "Sokoban!")
+startScreen = scaled 3 3 (lettering "Sokoban!")
 ```
 
-In order to implement this functionality, we need, in the state, remember whether we are showing the start screen, or whether we are already playing the game. But the type of `startScreenInteractionOf` (which is the same as `interactionOf`) is polymorphic in the state! We do not know what kind of state is used for the interaction we are wrapping, so we cannot use it to find out whether we are showing the start screen or not!
+In order to implement this functionality, we need, in the state, remember whether we are showing the start screen, or whether we are already playing the game. But the type of `startScreenActivityOf` (which is the same as `activityOf`) needs to be polymorphic in the state! We do not know what kind of state is used for the interaction we are wrapping, so we cannot use it to find out whether we are showing the start screen or not!
 
 So we need to define our own state data type. And clearly, it is in one of two states: It is either showing the start screen, or the game is running, in which case we need to hold the game’s state. We can define a data type that does that:
 
@@ -126,20 +125,18 @@ data SSState world = StartScreen | Running world
 
 So while `SSState` on its own is not a proper type yet, `SSState` applied to any type (e.g. `SSState Coord`) is.
 
-Now we can implement the bits required for `startScreenInteractionOf:
+Now we can implement the bits required for `startScreenActivityOf:
 
 ```haskell
-startScreenInteractionOf ::
-    world -> (Double -> world -> world) ->
-    (Event -> world -> world) -> (world -> Picture) ->
+startScreenActivityOf ::
+    world ->
+    (Event -> world -> world) ->
+    (world -> Picture) ->
     IO ()
-startScreenInteractionOf state0 step handle draw
-  = interactionOf state0' step' handle' draw'
+startScreenActivityOf state0 handle draw
+  = activityOf state0' handle' draw'
   where
     state0' = StartScreen
-
-    step' _ StartScreen = StartScreen
-    step' t (Running s) = Running (step t s)
 
     handle' (KeyPress key) StartScreen
          | key == " "                  = Running state0
@@ -149,14 +146,13 @@ startScreenInteractionOf state0 step handle draw
     draw' StartScreen = startScreen
     draw' (Running s) = draw s
 ```
-It was easy to write down the code, because we can program type-driven: With
+It was easy to write down the code, because we can program in a type-driven manner: With
 the type of the local functions in mind, we could simply program by cases.
 Every case on its own is rather obvious, and once we handled all the cases, we
 have a working program.
-([Open on CodeWorld](https://code.world/haskell#PgWdfKuq3lKWArNmdLLlm_A))
+([Open on CodeWorld](EDIT(code/03-start-screen.hs)))
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;hash=PgWdfKuq3lKWArNmdLLlm_A"></iframe>
-
+RUN(code/03-start-screen.hs)
 
 Wholemeal interactions
 ----------------------
@@ -169,43 +165,42 @@ complete programs, there is no way to apply one to the other.
 
 Surely, we can do better.
 
-Imagine we had a type `Interaction` that captures everything about an
-Interaction. Then what we had functions
+Imagine we had a type `Activity` that captures everything about an
+activity. What if we then also had functions
 ```haskell
-resetable :: Interaction -> Interaction
-withStartScreen :: Interaction -> Interaction
+resetable :: Activity -> Activity
+withStartScreen :: Activity -> Activity
 ```
 that modify interactions? Then we can obviously compose them. We would also need a type
 ```haskell
-runInteraction :: Interaction -> IO ()
+runActivity :: Activity -> IO ()
 ```
 that actually runs this interaction.
 
-It is possible to define such a type `Interaction`. Can you imagine how?
+It is possible to define such a type `Activity`. Can you imagine how?
 
-An interaction is defined by a state type, and by the four parameters that we so far have passed to `interactionOf`. So let us not pass them to `interactionOf`, but rather store them in a datatype:
+An interaction is defined by a state type, and by the three parameters that we so far have passed to `activityOf`. So let us not pass them to `activityOf`, but rather store them in a datatype:
 
 ```haskell
-data Interaction world = Interaction
+data Activity world = Activity
         world
-	(Double -> world -> world)
 	(Event -> world -> world)
 	(world -> Picture)
 ```
-Because of the type variable `world`, the type signatures of `resetable` and `withStartScreen` are a bit more complicated. We can use type inference to let the compile figure it out for us, though.
+Because of the type variable `world`, the type signatures of `resetable` and `withStartScreen` are a bit more complicated. We can use type inference to let the compiler figure it out for us, though.
 
-Changing the existing functions `startScreenInteractionOf` to `withStartScreen`, and `resetableInteractionOf` to `resetable` turns out to be trivial: Just replace the four parameters by one, pattern matching on `Interaction`, and replace the use of `interactionOf` with the constructor `Interaction`:
+Changing the existing functions `startScreenActivityOf` to `withStartScreen`, and `resetableActivityOf` to `resetable` turns out to be trivial: Just replace the three parameters by one, pattern matching on `Activity`, and replace the use of `activityOf` with the constructor `Activity`:
 
 ```haskell
-resetable :: Interaction s -> Interaction s
-resetable (Interaction state0 step handle draw)
-  = Interaction state0 step handle' draw
+resetable :: Activity s -> Activity s
+resetable (Activity state0 step handle draw)
+  = Activity state0 step handle' draw
   where handle' (KeyPress key) _ | key == "Esc" = state0
         handle' e s = handle e s
 
-withStartScreen :: Interaction s -> Interaction (SSState s)
-withStartScreen (Interaction state0 step handle draw)
-  = Interaction state0' step' handle' draw'
+withStartScreen :: Activity s -> Activity (SSState s)
+withStartScreen (Activity state0 step handle draw)
+  = Activity state0' step' handle' draw'
   where
     state0' = StartScreen
 
@@ -221,30 +216,28 @@ withStartScreen (Interaction state0 step handle draw)
     draw' (Running s) = draw s
 ```
 
-The function `runInteraction` is also very simply to write: We just pattern
-match on `Interaction` to get our hands on the individual functions, and pass them to `interactionOf`:
+The function `runActivity` is also very simply to write: We just pattern
+match on `Activity` to get our hands on the individual functions, and pass them to `activityOf`:
 
 ```haskell
-runInteraction :: Interaction s -> IO ()
-runInteraction (Interaction state0 step handle draw)
-  = interactionOf state0 step handle draw
+runActivity :: Activity s -> IO ()
+runActivity (Activity state0 step handle draw)
+  = activityOf state0 step handle draw
 ```
 
 The final bit we need to change, before we can put everything together, is to
-actually have an `Interaction` that represents our exercise2 from last
-homework. Again, we simply have to change `interactionOf` to `Interaction`, and the type of `exercise2`:
-
+actually have an `Activity` that represents the basic sokoban game:
 ```haskell
-exercise2 :: Interaction State
-exercise2 = Interaction initialState (\_ c -> c) handleEvent2 drawState2
+sokoban :: Activity State
+sokoban = Activity initialState handleEvent2 drawState2
 ```
 
-And finally, we can compose our interactions ([open on CodeWorld](https://code.world/haskell#PJWfm6wWdR7J83ePoNG_e8A)):
+And finally, we can compose our interactions ([open on CodeWorld](EDIT(code/03-activity-datatype.hs))). Try to start the game with space, and reset it with the escape key again!
 ```haskell
-main = runInteraction (resetable (withStartScreen exercise2))
+main = runActivity (resetable (withStartScreen sokoban))
 ```
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&amp;hash=PJWfm6wWdR7J83ePoNG_e8A"></iframe>
+RUN(code/03-activity-datatype.hs)
 
 Think about what happens if we switch the order of `resetable` and `withStartScreen`!
 
@@ -252,7 +245,7 @@ Recursive data types
 ====================
 
 An important concept that you will need in more complex programs (such as a
-proper Sokoban implementation), is recursive datatypes. These can be used to
+proper Sokoban implementation) is recursive datatypes. These can be used to
 implement lists and trees and many other data structures.
 
 In our game, the boxes will have to be moved around. It is likely that we
@@ -267,7 +260,7 @@ values of some arbitrary type?
 ### Lists
 
 Of course, the standard library comes with a suitable data type, but let us,
-for the sake of learning, define it outself. Just like we used recursion in
+for the sake of learning, define it ourself. Just like we used recursion in
 functions to replace loops, we can use recursion in types to implement lists:
 
 ```haskell
@@ -295,7 +288,7 @@ main = drawingOf (firstBox someBoxCoords)
 ```
 Now, what if we want to draw all boxes in the list? We would also start by
 pattern-matchin on the list, handle the empty case, and handle one entry, and
-then recurse on the remaining list ([open on CodeWorld](https://code.world/haskell#PoXPnTHilAaDgwkSoJ-SWgw)):
+then recurse on the remaining list ([open on CodeWorld](EDIT(code/03-first-list.hs))):
 ```haskell
 pictureOfBoxes :: List Coord -> Picture
 pictureOfBoxes Empty = blank
@@ -312,8 +305,8 @@ common idiom.
 
 Let us make this interactive again: We want to use the arrow keys to move *all* boxes. Here is one way of doing that:
 ```haskell
-movingBoxes :: Interaction (List Coord)
-movingBoxes = Interaction someBoxCoords (\_ s -> s) handle draw
+movingBoxes :: Activity (List Coord)
+movingBoxes = Activity someBoxCoords (\_ s -> s) handle draw
   where
     draw = boxes
     handle (KeyPress key) s
@@ -373,7 +366,7 @@ pictureOfBoxes cs = combine (mapList (\c -> atCoord c (drawTile Box)) cs)
 ```
 
 Granted, the code did not get much smaller. But we did gain a generally useful
-`combine` function. ([Open on CodeWorld](https://code.world/haskell#PwQ-ZMRVHGA40r0MKOnO8cg))
+`combine` function. ([Open on CodeWorld](EDIT(code/03-list-fun.hs)))
 
 
 Case expressions

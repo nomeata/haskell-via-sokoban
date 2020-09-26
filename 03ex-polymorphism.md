@@ -5,8 +5,8 @@ The goal of this set of exericses is simply: Implement Sokoban!
 
 In order to guide you through the process, and also to make partial grading possible, we will break it down into smaller steps.
 
-You can start from [this
-code](https://code.world/haskell#PC8zcugVZZ1W5SW0RGS33SA).
+You can [start from this
+template code](EDIT(code/03ex-template.hs)).
 It already includes type signatures for some of the functions described below.
 Make sure you adjust everything defined to be `undefined` or marked as `FIXME`.
 Use your solutions to previous exercises where appropriate (i.e. your
@@ -16,7 +16,7 @@ Step 1: The state
 -----------------
 
 Define a data type `State` that capture the state of the game. It needs to store these
-bits of information:
+pieces of information:
 
  * The current position of the player.
  * The direction the player is facing.
@@ -28,7 +28,7 @@ Step 2: The initial state
 Define a value `initialState :: State` for the initial state:
 
  * Manually define a sensible position for the player (i.e. on some `Ground` tile).
- * Use an arbitrary position.
+ * Use an arbitrary direction.
  * Find where the boxes are.
 
 The latter is a bit tricky: The information is there (in the definition of `maze`), but not very accessible. Do **not** just write down the list of coordinates by hand! Instead, define a value `initialBoxes :: List Coord` that is calcuated from looking at each coordinate (going from -10 to 10, as usual), and adding that coordinate to the list if there is a box.
@@ -120,8 +120,7 @@ Implement
 ```haskell
 handleEvent :: Event -> State -> State
 ```
-React to the arrow keys
-only. such an event can either succeed or fail.
+React to the arrow keys only. Such an event can either succeed or fail.
 
 It succeeds if the tile moved to is either `Ground` or `Storage` or `Box`. If
 it is `Box`, the next tile in that direction has to be `Ground` or `Storage`.
@@ -153,7 +152,7 @@ escape key returns to the start screen.
 
 It should now behave roughly like this:
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&dhash=De_0DFUfkO9MxkNAEQ5DhFA"></iframe>
+RUN(code/03ex-without-winning.hs)
 
 Step 7: Winning
 ---------------
@@ -187,6 +186,6 @@ Use `isWon` in two places:
 
 The final game should now behave like this:
 
-<iframe width="400" height="400" src="https://code.world/run.html?mode=haskell&dhash=DDav7JxxBO9jwO6B8-3ejRA"></iframe>
+RUN(code/03ex-complete.hs)
 
 

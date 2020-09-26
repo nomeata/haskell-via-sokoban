@@ -62,7 +62,6 @@ handleEvent (KeyPress key) c
     | key == "Up"    = tryGoTo c U
     | key == "Left"  = tryGoTo c L
     | key == "Down"  = tryGoTo c D
-    | otherwise      = c
 handleEvent _ c = c
 
 tryGoTo :: Coord -> Direction -> Coord

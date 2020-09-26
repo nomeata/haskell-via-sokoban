@@ -60,7 +60,7 @@ handleEvent (KeyPress key) c
     | key == "Up"    = adjacentCoord U c
     | key == "Left"  = adjacentCoord L c
     | key == "Down"  = adjacentCoord D c
-    | otherwise      = c
+handleEvent _ c = c
 
 drawState :: Coord -> Picture
 drawState c = atCoord c pictureOfMaze
