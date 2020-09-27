@@ -14,7 +14,7 @@ haskell-via-sokoban.md: $(SECTIONS) $(patsubst %,%.hash,$(CODE)) $(patsubst %,%.
 	mv $@.tmp $@
 	chmod -w $@
 
-haskell-via-sokoban.html: haskell-via-sokoban.md pandoc.css solution.css solution.js inline-code.css
+haskell-via-sokoban.html: haskell-via-sokoban.md
 	pandoc \
 	  --toc \
 	  --toc-depth 2 \
