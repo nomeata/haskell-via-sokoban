@@ -38,4 +38,4 @@ haskell-via-sokoban.html: haskell-via-sokoban.md pandoc.css solution.css solutio
 #	cd files; tree -H '.' -L 1 --noreport --charset utf-8 > index.html
 
 clean:
-	rm -f haskell-via-sokoban.md
+	rm -f haskell-via-sokoban.md haskell-via-sokoban.html

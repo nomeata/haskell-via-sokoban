@@ -23,6 +23,7 @@ script:
   - make
   - mkdir out/
   - touch out/nojekyll
+  - mv *.css out/
   - mv haskell-via-sokoban.html out/index.html
   - mv images out/
   - mv Mazes.hs out/
