@@ -16,6 +16,6 @@ do
     echo "$json" | jq -j .hash > "$file.hash"
     echo "$json" | jq -j .dhash > "$file.dhash"
     echo "${url}$mode#$(cat "$file.hash")"
-    curl -S -s -F "mode=$mode" -F "hash=<$file.hash" ${url}runMsg
+    ! curl -S -s -F "mode=$mode" -F "hash=<$file.hash" ${url}runMsg | grep .
 done
 

@@ -8,7 +8,7 @@ CODE=$(wildcard code/*.hs)
 code/%.dhash code/%.hash: code/%
 	./upload.sh $<
 
-haskell-via-sokoban.md: $(SECTIONS) $(patsubst %,%.hash,$(CODE))
+haskell-via-sokoban.md: $(SECTIONS) $(patsubst %,%.hash,$(CODE)) $(patsubst %,%.dhash,$(CODE))
 	rm -f $@
 	./subst.pl $(SECTIONS) > $@.tmp
 	mv $@.tmp $@
