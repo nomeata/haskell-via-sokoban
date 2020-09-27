@@ -1,31 +1,7 @@
 sudo: required
 dist: xenial
-addons:
-  apt:
-    sources:
-    - sourceline: 'ppa:jonathonf/texlive'
-    packages:
-    - tree
-    - texlive-latex-extra
-    - texlive-latex-recommended
-    - texlive-fonts-recommended
-    - texlive-xetex
-    - lmodern
-    - fonts-freefont-ttf
-    - fonts-freefont-otf
-    - fonts-inconsolata
-    - unifont
-    - fonts-texgyre
 
-language: haskell
-
-ghc:
-  - "8.4"
-
-cache:
-  directories:
-    - $HOME/.ghc
-    - $HOME/.cabal
+language: generic
 
 env:
   global:
@@ -33,10 +9,8 @@ env:
     - PANDOC_DEB="https://github.com/jgm/pandoc/releases/download/2.5/pandoc-2.5-1-amd64.deb"
 
 install:
-  - cabal install pandoc-types
-
   - mkdir -p "$PANDOC"
-  - curl -L https://github.com/jgm/pandoc/releases/download/2.5/pandoc-2.5-1-amd64.deb > "$PANDOC/pandoc.deb"
+  - curl -L "$PANDOC_DEB" > "$PANDOC/pandoc.deb"
   - dpkg -x "$PANDOC/pandoc.deb" "$PANDOC"
   - export PATH="$PANDOC/usr/bin:$PATH"
 
@@ -46,7 +20,8 @@ script:
   - mkdir out/
   - touch out/nojekyll
   - mv haskell-via-sokoban.html out/index.html
-  - mv files out/
+  - mv images out/
+  - mv Mazes.hs out/
 
 deploy:
   provider: pages
