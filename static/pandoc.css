@@ -49,7 +49,7 @@ p {
     body {
         max-width: 50%;
 
-        background-image: url("images/haskell-logo.png");
+        background-image: url("../images/haskell-logo.png");
         background-position: bottom 1em right 1em; /*Positioning*/
         background-repeat: no-repeat; /*Prevent showing multiple background images*/
         background-attachment: fixed;
