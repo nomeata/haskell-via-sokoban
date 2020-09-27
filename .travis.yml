@@ -24,9 +24,9 @@ script:
   - mkdir out/
   - touch out/nojekyll
   - mv *.css out/
-  - mv haskell-via-sokoban.html out/index.html
-  - mv images out/
-  - mv Mazes.hs out/
+  - mv -v haskell-via-sokoban.html out/index.html
+  - mv -v images out/
+  - mv -v static out/
 
 deploy:
   provider: pages

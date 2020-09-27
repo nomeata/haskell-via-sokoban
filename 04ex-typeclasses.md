@@ -5,7 +5,7 @@ Import the list of mazes
 ------------------------
 
 The students of the CIS194 course have contributed mazes, and you can [download the
-code of the mazes](../extras/Mazes.hs). It contains a list of mazes (`mazes`)
+code of the mazes](./static/Mazes.hs). It contains a list of mazes (`mazes`)
 and a longer list including broken mazes (`extraMazes`). Paste them into your
 file, at the very end.
 

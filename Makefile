@@ -21,10 +21,10 @@ haskell-via-sokoban.html: haskell-via-sokoban.md pandoc.css solution.css solutio
 	  --number-sections \
 	  --section-divs \
 	  --standalone \
-	  --include-in-header solution.js \
-	  --css pandoc.css \
-	  --css solution.css \
-	  --css inline-code.css \
+	  --include-in-header static/solution.js \
+	  --css static/pandoc.css \
+	  --css static/solution.css \
+	  --css static/inline-code.css \
 	  --write=html5 \
 	  -V lang=en-US \
 	  $< -o $@
