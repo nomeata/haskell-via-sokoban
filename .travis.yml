@@ -1,5 +1,9 @@
 sudo: required
 dist: xenial
+addons:
+  apt:
+    packages:
+    - libfile-slurp-perl
 
 language: generic
 
