@@ -320,7 +320,7 @@ ourPicture = colored green (solidCircle 1)
 As you see, even multiple arguments are just written after the function, separated by a space, and complex arguments need to be enclosed in parentheses.
 
 So what is the deal with two two arrows? Why not just
-`Color Picture -> Picture`? It might seem strage to you now, but there
+`Color Picture -> Picture`? It might seem strange to you now, but there
 is a very deep and beautiful reason, to which we will get in a few weeks; for
 now you just have to take my word for it!
 
@@ -331,7 +331,7 @@ draw more than one thing. So what we are looking for is a function that takes
 two pictures, and combines them to one. You should agree with me that such a function
 likely would have type `Picture -> Picture -> Picture`.
 
-And now we are expericing one of the advantages of a good type system: We can search for a type! Indeed, there is only function in the documentation that has this type
+And now we are experiencing one of the advantages of a good type system: We can search for a type! Indeed, there is only function in the documentation that has this type
 
 ```haskell
 (&) :: Picture -> Picture -> Picture
@@ -339,7 +339,7 @@ And now we are expericing one of the advantages of a good type system: We can se
 
 That is a strange name for a function, but it is indeed one name for it, and we
 could use `(&)` as a normal function, putting the arguments to its right. But,
-as you migh have guessed, we can use `&` (without the parentheses) as an
+as you might have guessed, we can use `&` (without the parentheses) as an
 operator, and put it in between two pictures.
 
 ```haskell
@@ -395,7 +395,7 @@ Defining functions
 
 We have seen how to use functions, but we also want define our own. And in a
 way, we have been defining functions all the time when we wrote `something =
-this and that`; this defined a function `something`, which just happend to not
+this and that`; this defined a function `something`, which just happened to not
 take any argument. If we want it to take any arguments, we just write give
 their names on the left:
 
@@ -423,7 +423,7 @@ ourPicture = trafficLight True
 We could, and we should, also write down the type of `trafficLight`. Not that
 the compiler needs us to do that -- it is smart enough to figure that out by
 itself. But it helps us to understand the code better, to confirm that what we
-wrote is actually what we intended, and to narrow down bugs in the code. Conveniently, the compiler tells us about the correct signture, so we can just copy that:
+wrote is actually what we intended, and to narrow down bugs in the code. Conveniently, the compiler tells us about the correct signature, so we can just copy that:
 
 ```haskell
 trafficLight :: Bool -> Picture
@@ -631,7 +631,7 @@ main = drawingOf (tree 8)
 ```
 
 We will get to the meaning of the lists with brackets and the pairs with
-parentheses next lession, for now just consider this a way of drawing a line
+parentheses next lesson, for now just consider this a way of drawing a line
 from one point to another.
 
 RUN(code/tree.hs)

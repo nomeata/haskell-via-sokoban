@@ -1,4 +1,4 @@
-✍️ Exericses {.exercises}
+✍️ Exercises {.exercises}
 =========
 
 When solving the exercises, strive to create not just code that works,
@@ -7,9 +7,9 @@ just a single task, and then combine those smaller pieces to create more
 complex functions. Don’t repeat yourself: write one function for each
 logical task, and reuse functions as necessary.
 
-In thes exercises, you will be creating lots of drawing
+In these exercises, you will be creating lots of drawing
 and animations. The exercises will describe what you have to do, and
-maybe give an (simple) example, but you are alway welcome to make it
+maybe give an (simple) example, but you are always welcome to make it
 prettier and more shiny. This is all good as long as you do not
 *simplify* the task this way, or make the code too convoluted. Extra
 effort in that direction contributes towards your participation score.
@@ -24,7 +24,7 @@ In the class, we defined a traffic light animation. Real traffic lights have
 an amber light in the middle.
 
 Change the code to include the yellow light, and animate a correct sequence
-of traffic light signalling:
+of traffic light signaling:
 
  * a long green phase
  * a short amber phase
@@ -61,9 +61,9 @@ animation should stop.
 A bloom could be a yellow circle growing in size, or something more
 intricate with petals and better colors and whatnot.
 
-In your code, modify `tree` to be *abstact* in the actual shape of the
+In your code, modify `tree` to be *abstract* in the actual shape of the
 blossoms. This way, the `tree` function itself is independent of time.
-Do *not* pass the time paramter to the `tree` function!
+Do *not* pass the time parameter to the `tree` function!
 
 The result could look like this:
 

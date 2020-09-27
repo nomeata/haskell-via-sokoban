@@ -60,7 +60,7 @@ so that in a call `isGraphClosed initial adjacent isOk`, where the parameters ar
 
 the function returns `True` if all reachable nodes are “ok” and `False` otherwise.
 
-Note that the graph described by `adjacent` can have circles, and you do not want your program to keep running in circles. So you will have to remember what nodes you have already visted.
+Note that the graph described by `adjacent` can have circles, and you do not want your program to keep running in circles. So you will have to remember what nodes you have already visited.
 
 The algorithm follows quite naturally from handling the various cases in a local helper function `go` that takes two arguments, namely a list of seen nodes and a list of nodes that need to be handled. If the latter list is empty, you are done. If it is not empty, look at the first entry. Ignore it if you have seen it before. Otherwise, if it is not ok, you are also done. Otherwise, add its adjacent elements to the list of nodes to look at.
 
@@ -109,20 +109,20 @@ Let `exercise3 :: IO ()` be the visualization of `isClosed` applied to every ele
 Multi-Level Sokoban
 -------------------
 
-Extend your game from the last exericse (or start with [the example solution](EDIT(code/03ex-complete.hs)) to implement multi-level sokoban.
+Extend your game from the last exercise (or start with [the example solution](EDIT(code/03ex-complete.hs)) to implement multi-level sokoban.
 
   * Extend the `State` with a field of type `Integer`, to indicate the current
     level (start counting at 1).
   * The initial state should start with level 1. The initial coordinate is
-    obtainedr from the entry in `mazes`.
+    obtained from the entry in `mazes`.
   * Your `handle` and `draw` functions will now need to take an additional
-    argument, the current maze, of type `Coord -> Tile`, instead of refering to
+    argument, the current maze, of type `Coord -> Tile`, instead of referring to
     a top-level `maze` function. Any helper functions (e.g. `noBoxMaze`) will
     also have to take this as an argument. This requires many, but
     straight-forward changes to the code: You can mostly, without much
     thinking:
 
-      * Check the compier errors for an affected function, say `foo`.
+      * Check the compiler errors for an affected function, say `foo`.
       * Add `(Coord -> Tile) ->` to the front of `foo`’s type signature,  .
       * Add a new first parameter `maze` to `foo`
       * Everywhere where `foo` is called, add `maze` as an argument.
@@ -140,7 +140,7 @@ Extend your game from the last exericse (or start with [the example solution](ED
     There is some code to be shared with the calculation of the initial state!
     Maybe the same function `loadLevel :: Integer -> State` can be used in both
     situations.
-  * If the level is solved and the current leve is the last, show a differnt
+  * If the level is solved and the current level is the last, show a different
     message (e.g. “All done” instead of “You won”).
 
 Congratulations, you have now created a fully functional multi-level Sokoban game, which should look like this (and you can [look at the code here](EDIT(code/04ex-sokoban.hs))):

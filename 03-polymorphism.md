@@ -12,7 +12,7 @@ activityOf :: world ->
               IO ()
 ```
 
-This function is polymorphic becaues the type `world` is arbitrary, and can be
+This function is polymorphic because the type `world` is arbitrary, and can be
 chosen by the caller. We did that in last week’s class when we instantiated
 with `Coord`, and you did it again in the homework, using your custom `State`
 type.
@@ -100,7 +100,7 @@ Not only functions can be polymorphic, but also data types. Let us motivate
 that by an example.
 
 In last week's homework ([example solution](EDIT(code/ho-ex-3.hs))), we created a variant of `activityOf` that would
-allow the game to be reset (and it was indeed polymorphic). Let us do something similar and create a variant of `activityOf` that would initially show a startup-screeen, and start the game proper only when the space key is pressed.
+allow the game to be reset (and it was indeed polymorphic). Let us do something similar and create a variant of `activityOf` that would initially show a startup-screen, and start the game proper only when the space key is pressed.
 
 We define a very simple start screen:
 
@@ -226,7 +226,7 @@ runActivity (Activity state0 step handle draw)
 ```
 
 The final bit we need to change, before we can put everything together, is to
-actually have an `Activity` that represents the basic sokoban game:
+actually have an `Activity` that represents the basic Sokoban game:
 ```haskell
 sokoban :: Activity State
 sokoban = Activity initialState handleEvent2 drawState2
@@ -249,18 +249,18 @@ proper Sokoban implementation) is recursive datatypes. These can be used to
 implement lists and trees and many other data structures.
 
 In our game, the boxes will have to be moved around. It is likely that we
-will want to manage a list of coordiates of these boxes, and clearly, this
+will want to manage a list of coordinates of these boxes, and clearly, this
 is going to be part of our state.
 
 Our code should work with any number of boxes (as various levels have various
-number of boxes). What type is suitable to store any number of coordiates? Or
+number of boxes). What type is suitable to store any number of coordinates? Or
 -- as you would expect after we talked about polymorphism -- any number of
 values of some arbitrary type?
 
 ### Lists
 
 Of course, the standard library comes with a suitable data type, but let us,
-for the sake of learning, define it ourself. Just like we used recursion in
+for the sake of learning, define it ourselves. Just like we used recursion in
 functions to replace loops, we can use recursion in types to implement lists:
 
 ```haskell
@@ -269,7 +269,7 @@ data List a = Empty | Entry a (List a)
 
 So a value of type `List a` is either the constructor `Empty`, or there is a
 list entry, which is a value of type `a`, and then the remainder of the list,
-i.e. another value of tye `List a`.
+i.e. another value of type `List a`.
 
 We can define a value of that type, by using the constructors, as you would expect:
 ```haskell
@@ -287,7 +287,7 @@ main :: IO ()
 main = drawingOf (firstBox someBoxCoords)
 ```
 Now, what if we want to draw all boxes in the list? We would also start by
-pattern-matchin on the list, handle the empty case, and handle one entry, and
+pattern-matching on the list, handle the empty case, and handle one entry, and
 then recurse on the remaining list ([open on CodeWorld](EDIT(code/03-first-list.hs))):
 ```haskell
 pictureOfBoxes :: List Coord -> Picture
@@ -333,7 +333,7 @@ function:
 mapList _ Empty = Empty
 mapList f (Entry c cs) = Entry (f c) (mapList f cs)
 ```
-and then we can use it in `handle` (note how partially appliying
+and then we can use it in `handle` (note how partially applying
 `adjacentCoord` works out so nicely here!):
 ```haskell
     handle (KeyPress key) s

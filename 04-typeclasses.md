@@ -39,7 +39,7 @@ and its methods, namely
 
 The documentation obscures this a bit, but if you put the two code snippets above together you get what you would write to define such a class yourself.
 
-Note that ethods are given with *just* their type signature – the
+Note that methods are given with *just* their type signature – the
 implementation will be in the class instances.  Also, the type is given without
 the `Eq` constraint that you saw in the type signature for `(==)` earlier; this is added automatically.
 
@@ -53,7 +53,7 @@ instance Eq a => Eq [a]
 …
 ```
 
-The `Eq Coord` instanace
+The `Eq Coord` instance
 ------------------------
 
 Now that we know what method the class as, we can write our own instance for `Coord`:
@@ -69,7 +69,7 @@ Now our code compiles again.
 Default implementations
 -----------------------
 
-Note that I was lazy and did not really implement `(/=)`; I just refered to the implementation of `(==)`. Obvoiusly, that is fair game for *every* instance of `Eq` that one might want to implement.
+Note that I was lazy and did not really implement `(/=)`; I just referred to the implementation of `(==)`. Obviously, that is fair game for *every* instance of `Eq` that one might want to implement.
 
 Therefore, the `Eq` class already comes with a *default implementation* of `(/=)` in terms of `(==)` and we can simply skip the definition in our code.
 
@@ -91,8 +91,8 @@ instance Eq Tile where
   Blank == Blank = True
   _ == _ = False
 ```
-Now that works, but I am sure you can immediatelly tell me why this is not
-satisfying: That is a lot of code to write, it is repetetive, and if we add
+Now that works, but I am sure you can immediately tell me why this is not
+satisfying: That is a lot of code to write, it is repetitive, and if we add
 another constructor to `Tile`, the code will be wrong.
 
 Luckily, at least for some of the basic type classes, the compiler can write the instance for us. We just have to instruct it to:
@@ -161,7 +161,7 @@ I will demonstrate this in a moment, but let's continue with the general remarks
 
 Haskell guarantees that for a particular type and a particular type class, there is at most one instance. If we would try to define `instance Eq Coord` again, the compiler will bark at us.
 
-This means that the meaning of an overloaded function depends only on the concret type it is used with, but not in what context it is used. This is used by the library implementation of search trees, which uses the `Ord` instance of the type of keys to build the tree, and this would go horribly wrong if you build the tree with one particular ordering, and then search in it using a completely different ordering.
+This means that the meaning of an overloaded function depends only on the concrete type it is used with, but not in what context it is used. This is used by the library implementation of search trees, which uses the `Ord` instance of the type of keys to build the tree, and this would go horribly wrong if you build the tree with one particular ordering, and then search in it using a completely different ordering.
 
 Use case: Undo stacks
 ---------------------
@@ -286,7 +286,7 @@ Besides `Eq`, you should know about these type classes:
       with methods like `div` and `mod`, for integral types that allow these operations.
       Instances for `Int`, `Integer`, and others.
     * [`Fractional`](http://hackage.haskell.org/package/base-4.8.2.0/docs/Prelude.html#t:Fractional)
-      with method `(/)` for anything that can properly be devided. In particular, `Double`.
+      with method `(/)` for anything that can properly be divided. In particular, `Double`.
     * [`Floating`](http://hackage.haskell.org/package/base-4.8.2.0/docs/Prelude.html#t:Floating)
       with methods like `pi`, `exp`, `sin`, `(**)` which require floating point
       numbers. Instance for `Double`.

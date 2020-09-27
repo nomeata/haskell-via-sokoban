@@ -1,4 +1,4 @@
-✍️ Exericses {.exercises}
+✍️ Exercises {.exercises}
 =========
 
 You are free to use the [code from above](EDIT(code/activity-keypress.hs)) and from your own

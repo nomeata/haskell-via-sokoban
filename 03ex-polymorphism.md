@@ -1,7 +1,7 @@
 ✍️ Exercises: Build Sokoban {.exercises}
 ========================
 
-The goal of this set of exericses is simply: Implement Sokoban!
+The goal of this set of exercises is simply: Implement Sokoban!
 
 In order to guide you through the process, and also to make partial grading possible, we will break it down into smaller steps.
 
@@ -31,7 +31,7 @@ Define a value `initialState :: State` for the initial state:
  * Use an arbitrary direction.
  * Find where the boxes are.
 
-The latter is a bit tricky: The information is there (in the definition of `maze`), but not very accessible. Do **not** just write down the list of coordinates by hand! Instead, define a value `initialBoxes :: List Coord` that is calcuated from looking at each coordinate (going from -10 to 10, as usual), and adding that coordinate to the list if there is a box.
+The latter is a bit tricky: The information is there (in the definition of `maze`), but not very accessible. Do **not** just write down the list of coordinates by hand! Instead, define a value `initialBoxes :: List Coord` that is calculated from looking at each coordinate (going from -10 to 10, as usual), and adding that coordinate to the list if there is a box.
 
 There are two ways of doing that. Pick one (but try to understand both):
 
@@ -95,7 +95,7 @@ long run. Therefore, you need to define two more mazes:
     that checks if two coordinates are the same.
 
     Note that `mazeWithBoxes`, partially applied to one argument (the list with
-    the curren positions of the boxes), has the same type as `maze`.
+    the current positions of the boxes), has the same type as `maze`.
 
 
 Step 4: Draw the state
@@ -146,7 +146,7 @@ If the move fails, update only the direction the player.
 Step 6: Putting it all together
 -------------------------------
 
-Define an `Interaction` based on the functions you defined in the prevoius
+Define an `Interaction` based on the functions you defined in the previous
 steps. Wrap it in `resetable` and `withStartScreen`, so that pressing the
 escape key returns to the start screen.
 
@@ -157,7 +157,7 @@ RUN(code/03ex-without-winning.hs)
 Step 7: Winning
 ---------------
 
-One bit is missing: If the game has been won, you need to say so, and futher interaction should stop.
+One bit is missing: If the game has been won, you need to say so, and further interaction should stop.
 
 Define a function
 ```haskell

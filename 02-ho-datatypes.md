@@ -51,7 +51,7 @@ drawCol = drawTileAt ? ?
 
 Now we are stuck: In the definition of `drawCol`, we need to know the
 current row and column number, but we do not have that! If we would write `n`
-(which maybe a perl programmer from the last century would try here), we would
+(which maybe a Perl programmer from the last century would try here), we would
 get an error about a variable being not in scope. And even if we somehow could
 access the `n` there, which one would it be – `draw21times` is run twice here!
 
@@ -183,7 +183,7 @@ Captured variables
 Making `go` a local function and moving it into `draw21times` has another
 advantage: It can reference the parameters of `draw21times`. Currently, `go`
 goes through quite some lengths to pass the `something` parameter around. But
-that is no longer necesary: It can simply refer to `something` as it is bound
+that is no longer necessary: It can simply refer to `something` as it is bound
 by `draw21times`:
 
 ```haskell
@@ -224,7 +224,7 @@ or in an `where` clause. The form of the definition has always been the same,
 though, and all of them required giving a name to the thing.
 
 Giving a name is not always desired. Naming things is hard! Therefore, at least
-for very small functions that are used only once, it is desireable to just
+for very small functions that are used only once, it is desirable to just
 define them on the spot where they are used.
 
 Consider the `drawRow` function: All it does is to call `draw21times` with
@@ -238,7 +238,7 @@ spot in `pictureOfMaze`:
 pictureOfMaze = draw21times (\r -> draw21times (drawTileAt r))
 ```
 
-The `backslash` is a poor rendering of the greek letter λ (lambda), and indicates that this defines an anonymous, local function, which, when called, takes one parameter `r`, and returns the stuff after the right arrow, i.e. `draw21times (drawTileAt r)`.
+The `backslash` is a poor rendering of the Greek letter λ (lambda), and indicates that this defines an anonymous, local function, which, when called, takes one parameter `r`, and returns the stuff after the right arrow, i.e. `draw21times (drawTileAt r)`.
 
 We could use it twice to make it a bit clearer what this code does, by naming
 the variables for the row and the column appropriately, and also showing the
@@ -254,7 +254,7 @@ You can see the [final code on CodeWorld](EDIT(code/ho-maze.hs)).
 Data types
 ==========
 
-On to the next topic, and again we will motivate and introduce it by adressing some wart
+On to the next topic, and again we will motivate and introduce it by addressing some wart
 in the code from the last set of exercises.
 
 The functions `drawTile` and `maze` designate the different types of tiles by a
@@ -309,7 +309,7 @@ Booleans
 You have actually used such a datatype before, in last week's class: We were
 using the type `Bool`, with its values `True` and `False`. And it may come as a
 surprise to you that this type is defined using the very same mechanism that
-you just learend:
+you just leaned:
 ```haskell
 data Bool = False | True
 ```
@@ -318,13 +318,13 @@ It is a sign of good programming language design if many concepts can be
 implemented using the language itself, instead of having to be built in.
 
 The same then holds for operators like `(||)` and `(&&)` -- there is nothing
-special about them, and you could have definded them yourself. (Try to come up
+special about them, and you could have defined them yourself. (Try to come up
 with their definition, and then compare it against the real one!)
 
-The type is still somewhat priviliged though, because guards, like the one in
+The type is still somewhat privileged though, because guards, like the one in
 `maze`, need to be expressions of type `Bool`. But that’s just a use of the type, not the definition of the type.
 
-More data types for Sokoboban
+More data types for Sokoban
 -----------------------------
 
 Let us work towards making our animation interactive. To start with, we might
@@ -362,7 +362,7 @@ initialCoord = C 0 0
 ```
 
 So it is straight forward to create a `Coord` (just use the constructor as a
-function). How do we use a `Coord`? This works by pattern matching. We will need a function that translates a picture to have its origin at a given coord. Let us write it, first thinking about the type and then the code:
+function). How do we use a `Coord`? This works by pattern matching. We will need a function that translates a picture to have its origin at a given coordinate. Let us write it, first thinking about the type and then the code:
 
 ```haskell
 atCoord :: Coord -> Picture -> Picture
@@ -371,9 +371,9 @@ atCoord (C x y) pic = translated (fromIntegral x) (fromIntegral y) pic
 
 So when we pattern match against a constructor with parameters, we simply give names to the parameters. We have to put parentheses around this, to distinguish it from multiple function parameters -- this applies consistently in pattern just as well as in expressions.
 
-(The `fromIntegral` is needed to convert the `Integer` to a `Double`. Why did we not put `Double` in the type of `Coord` in the first place? Because `Integer` is more honest: If we just use the keyboard, there will never be non-integral coordiantes there.)
+(The `fromIntegral` is needed to convert the `Integer` to a `Double`. Why did we not put `Double` in the type of `Coord` in the first place? Because `Integer` is more honest: If we just use the keyboard, there will never be non-integral coordinates there.)
 
-The next function that we will want to write is one that calculates a new coordiante, based on the current coordiante and a direction.
+The next function that we will want to write is one that calculates a new coordinate, based on the current coordinate and a direction.
 
 ```haskell
 adjacentCoord :: Direction -> Coord -> Coord
@@ -401,7 +401,7 @@ Pure Interaction
 Time to put these thing to good use. The goal is as follows: The maze should be
 centered when we start the program. Then we can use the arrow keys to move it around. We have already implemented most functionality for that, but you might wonder: How can we have interaction in a world without side-effects? How can we remember the current state in a world without mutable variables?
 
-Well, we solved such a riddle before, when we implemented an animation, by modelling our thoughts in terms of pure functions, and then having some “machinery” that executes our pure functions, yielding the desired effect. We can do it again.
+Well, we solved such a riddle before, when we implemented an animation, by modeling our thoughts in terms of pure functions, and then having some “machinery” that executes our pure functions, yielding the desired effect. We can do it again.
 
 An interactive program changes state whenever a new input event happens. If we want to separate the logic of the state change from the logic of remembering the current state, the former becomes a pure function again, namely one that, given the input event and the current state, calculates the new state. Additionally, we need to specify the initial state, and then of course how to visualize the state.
 
@@ -502,13 +502,13 @@ Adding this functionality is quite simple: Just add another line to `handleEvent
 ```
 
 But this is not pleasing: The function `handleEvent` is getting large, and is
-mixing two different things: Decyphering the `Event` type, and actually
+mixing two different things: Deciphering the `Event` type, and actually
 performing the event. So let us separate these two, and define a clear
 interface for our game. For that, we want to define a datatype.
 
 What interactions do we have now? All four directions, plus reset. It would not be wise to add `Reset` to the directions, as `Reset` is not a direction. It would also not be wise to simply create a new data type with five constructors, as we would be duplicating the structure of directions.
 
-So we want a data type that is either a direction (and use `Direction` there), or a reset command. We thus need to constructors, one of which has a `Direction` as a paremeter:
+So we want a data type that is either a direction (and use `Direction` there), or a reset command. We thus need to constructors, one of which has a `Direction` as a parameter:
 
 ```haskell
 data Command = Goto Direction | Reset
@@ -520,5 +520,5 @@ We then split `handleEvent` into `parseEvent`
 
 With that knowledge (and some cleverness) you should already be able to write a
 fully functional Sokoban, although we will use the next set of exercises for some
-more prelimaries, and then learn a bit more that will help us finish the game.
+more preliminaries, and then learn a bit more that will help us finish the game.
 
