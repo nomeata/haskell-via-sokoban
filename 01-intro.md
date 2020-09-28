@@ -203,7 +203,7 @@ Basic Haskell
 =============
 
 So let us see some Haskell code. On CodeWorld, we generally start with this
-code ([open on CodeWorld](EDIT(code/blank.hs))
+code ([open on CodeWorld](EDIT(code/blank.hs))):
 
 LISTING(code/blank.hs)
 
@@ -619,7 +619,7 @@ replace the binding by `_`, indicating that you do not want to name this
 parameter.
 
 A recursive function may call itself more than once, and this allows for nice
-drawings [open on CodeWorld](EDIT(code/tree.hs)):
+drawings ([open on CodeWorld](EDIT(code/tree.hs))):
 
 ```haskell
 tree :: Integer -> Picture
