@@ -418,7 +418,7 @@ activityOf :: world ->
 
 Its type signature mentions the type `world`. This is not a specific type, but rather a type variable. We’ll get to that later; all we need to know for now is that this type can be any type we want it to be. This type contains the state of the program. In our case, it is simply a `Coord`.
 
-The function `interactionOf` takes three arguments:
+The function `activityOf` takes three arguments:
 
  1. An initial state.
  3. A function modifying the state if a certain event has happened. An event is either some action by the user, or simply the passing of time.
