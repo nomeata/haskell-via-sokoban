@@ -200,7 +200,7 @@ resetable (Activity state0 handle draw)
 
 withStartScreen :: Activity s -> Activity (SSState s)
 withStartScreen (Activity state0 handle draw)
-  = Activity state0' ' handle' draw'
+  = Activity state0' handle' draw'
   where
     state0' = StartScreen
 
