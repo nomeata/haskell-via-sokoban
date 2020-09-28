@@ -193,19 +193,16 @@ Changing the existing functions `startScreenActivityOf` to `withStartScreen`, an
 
 ```haskell
 resetable :: Activity s -> Activity s
-resetable (Activity state0 step handle draw)
-  = Activity state0 step handle' draw
+resetable (Activity state0 handle draw)
+  = Activity state0 handle' draw
   where handle' (KeyPress key) _ | key == "Esc" = state0
         handle' e s = handle e s
 
 withStartScreen :: Activity s -> Activity (SSState s)
-withStartScreen (Activity state0 step handle draw)
-  = Activity state0' step' handle' draw'
+withStartScreen (Activity state0 handle draw)
+  = Activity state0' ' handle' draw'
   where
     state0' = StartScreen
-
-    step' _ StartScreen = StartScreen
-    step' t (Running s) = Running (step t s)
 
     handle' (KeyPress key) StartScreen
          | key == " "                  = Running state0
@@ -221,8 +218,8 @@ match on `Activity` to get our hands on the individual functions, and pass them 
 
 ```haskell
 runActivity :: Activity s -> IO ()
-runActivity (Activity state0 step handle draw)
-  = activityOf state0 step handle draw
+runActivity (Activity state0 handle draw)
+  = activityOf state0 handle draw
 ```
 
 The final bit we need to change, before we can put everything together, is to
