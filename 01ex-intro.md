@@ -99,7 +99,7 @@ squares that may occur:
 4.  Boxes
 
 After this exercise, we will have the necessary code to draw a sokoban
-level. You can use [this code](EDIT(code/sokoban-ex1.hs) to get started.
+level. You can use [this code](EDIT(code/sokoban-ex1.hs)) to get started.
 
 -   Create a functions `wall`, `ground`, `storage` and `box` of type
     `Picture`, which draw the corresponding thing, with a width and
