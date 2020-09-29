@@ -127,8 +127,8 @@ close look at Haskell's type system, which
     It's much better to be able to fix errors up front than to just
     test a lot and hope for the best.  “If it compiles, it must be
     correct” is mostly facetious (it's still quite possible to have errors
-    in logic even in a type-correct program), but you will have this
-    experience much more likely in Haskell than in other languages.
+    in logic even in a type-correct program), but you are much more likely
+    to have this experience in Haskell than in other languages.
 
 ### Abstraction
 
@@ -191,12 +191,12 @@ In this class, we start working within a programming environment called
 CodeWorld, which you can access at <http://code.world/haskell> (the `/haskell`
 is important). This has the advantages that
 
- * we can start right ahead, and take care of local installation later
+ * we can start straight away, and take care of local installation later
  * with the integrated support for displaying graphical output, we can have
    nice, visual, examples and initial tasks.
 
 We will switch to compiling programs locally later during the course. If you
-want to work locally already now, there are instructions on the course website.
+want to work locally from the start, there are instructions on the course website.
 
 
 Basic Haskell
@@ -289,7 +289,7 @@ ourPicture = solidCircle (1+1)
 
  <!-- maybe not yet here
 
-Another interesting function is `text`, which text into a picture:
+Another interesting function is `text`, which turns text into a picture:
 
 > ourPicture = text "Hello World"
 
@@ -331,7 +331,7 @@ draw more than one thing. So what we are looking for is a function that takes
 two pictures, and combines them to one. You should agree with me that such a function
 likely would have type `Picture -> Picture -> Picture`.
 
-And now we are experiencing one of the advantages of a good type system: We can search for a type! Indeed, there is only function in the documentation that has this type
+And now we are experiencing one of the advantages of a good type system: We can search for a type! Indeed, there is only one function in the documentation that has this type
 
 ```haskell
 (&) :: Picture -> Picture -> Picture
