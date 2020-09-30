@@ -49,7 +49,7 @@ In the class, we defined a tree, but it looks a bit dire. Here is [the code agai
 ```haskell
 tree :: Integer -> Picture
 tree 0 = blank
-tree n = path [(0,0),(0,1)] & translated 0 1 (
+tree n = polyline [(0,0),(0,1)] & translated 0 1 (
   rotated (pi/10) (tree (n-1)) & rotated (- pi/10) (tree (n-1)))
 ```
 
