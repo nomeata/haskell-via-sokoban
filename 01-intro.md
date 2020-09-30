@@ -289,18 +289,18 @@ ourPicture = solidCircle (1+1)
 
  <!-- maybe not yet here
 
-Another interesting function is `text`, which turns text into a picture:
+Another interesting function is `lettering`, which turns text into a picture:
 
-> ourPicture = text "Hello World"
+> ourPicture = lettering "Hello World"
 
 If you forget the line `{-# LANGUAGE OverloadedStrings #-}` you will get this
 error message when working with text:
 
     Couldn't match expected type ‘Data.Text.Internal.Text’
                 with actual type ‘[Char]’
-    In the first argument of ‘text’, namely ‘"Hello World"’
-    In the expression: text "Hello World"
-    In an equation for ‘ourPicture’: ourPicture = text "Hello World"
+    In the first argument of ‘lettering’, namely ‘"Hello World"’
+    In the expression: lettering "Hello World"
+    In an equation for ‘ourPicture’: ourPicture = lettering "Hello World"
 -->
 
 ### Modifying Pictures
