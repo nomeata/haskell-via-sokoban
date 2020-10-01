@@ -202,7 +202,7 @@ Haskell – how else would you know where the `where` clause ends. Indeed, like
 Python, but unlike most other programming languages, Haskell is indentation
 sensitive. This has two advantages:
 
- * There is need for delimiters like curly braces etc, which makes the code cleaner
+ * There is no need for delimiters like curly braces etc, which makes the code cleaner
    and easier to read.
  * It ensures that the programmer writes properly indented code.
 
