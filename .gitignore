@@ -1,4 +1,5 @@
 *.bak
+*.subst.md
 code/*.hash
 code/*.dhash
 slides.html
