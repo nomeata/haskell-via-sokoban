@@ -303,9 +303,9 @@ common idiom.
 Let us make this interactive again: We want to use the arrow keys to move *all* boxes. Here is one way of doing that:
 ```haskell
 movingBoxes :: Activity (List Coord)
-movingBoxes = Activity someBoxCoords (\_ s -> s) handle draw
+movingBoxes = Activity someBoxCoords handle draw
   where
-    draw = boxes
+    draw = pictureOfBoxes
     handle (KeyPress key) s
         | key == "Right" = moveAllBoxes R s
         | key == "Up"    = moveAllBoxes U s
