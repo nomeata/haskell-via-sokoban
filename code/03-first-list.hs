@@ -153,9 +153,9 @@ data List a = Empty | Entry a (List a)
 someBoxCoords :: List Coord
 someBoxCoords = Entry (C 2 2) (Entry (C 3 3) (Entry (C (-1) 0) Empty))
 
-boxes :: List Coord -> Picture
-boxes Empty = blank
-boxes (Entry c cs) = atCoord c (drawTile Box) & boxes cs
+pictureOfBoxes :: List Coord -> Picture
+pictureOfBoxes Empty = blank
+pictureOfBoxes (Entry c cs) = atCoord c (drawTile Box) & boxes cs
 
 main :: IO ()
-main = drawingOf (boxes someBoxCoords)
+main = drawingOf (pictureOfBoxes someBoxCoords)
