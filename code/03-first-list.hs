@@ -28,8 +28,8 @@ draw21times something = go (-10)
 
 drawTileAt :: Coord -> Picture
 drawTileAt c = atCoord c (drawTile (maze c))
-         
-maze :: Coord -> Tile 
+
+maze :: Coord -> Tile
 maze (C x y)
   | abs x > 4  || abs y > 4  = Blank
   | abs x == 4 || abs y == 4 = Wall
@@ -72,25 +72,25 @@ isOk _ = False
 
 player :: Direction -> Picture
 player R = translated 0 0.3 cranium
-          & polyline [(0,0),(0.3,0.05)] 
-          & polyline [(0,0),(0.3,-0.05)] 
-          & polyline [(0,-0.2),(0,0.1)] 
+          & polyline [(0,0),(0.3,0.05)]
+          & polyline [(0,0),(0.3,-0.05)]
+          & polyline [(0,-0.2),(0,0.1)]
           & polyline [(0,-0.2),(0.1,-0.5)]
           & polyline [(0,-0.2),(-0.1,-0.5)]
   where cranium = circle 0.18
                 & sector (7/6*pi) (1/6*pi) 0.18
 player L = scaled (-1) 1 (player R) -- Cunning!
 player U = translated 0 0.3 cranium
-          & polyline [(0,0),(0.3,0.05)] 
-          & polyline [(0,0),(-0.3,0.05)] 
-          & polyline [(0,-0.2),(0,0.1)] 
+          & polyline [(0,0),(0.3,0.05)]
+          & polyline [(0,0),(-0.3,0.05)]
+          & polyline [(0,-0.2),(0,0.1)]
           & polyline [(0,-0.2),(0.1,-0.5)]
           & polyline [(0,-0.2),(-0.1,-0.5)]
   where cranium = solidCircle 0.18
 player D = translated 0 0.3 cranium
-          & polyline [(0,0),(0.3,-0.05)] 
-          & polyline [(0,0),(-0.3,-0.05)] 
-          & polyline [(0,-0.2),(0,0.1)] 
+          & polyline [(0,0),(0.3,-0.05)]
+          & polyline [(0,0),(-0.3,-0.05)]
+          & polyline [(0,-0.2),(0,0.1)]
           & polyline [(0,-0.2),(0.1,-0.5)]
           & polyline [(0,-0.2),(-0.1,-0.5)]
   where cranium = circle 0.18
@@ -155,7 +155,7 @@ someBoxCoords = Entry (C 2 2) (Entry (C 3 3) (Entry (C (-1) 0) Empty))
 
 pictureOfBoxes :: List Coord -> Picture
 pictureOfBoxes Empty = blank
-pictureOfBoxes (Entry c cs) = atCoord c (drawTile Box) & boxes cs
+pictureOfBoxes (Entry c cs) = atCoord c (drawTile Box) & pictureOfBoxes cs
 
 main :: IO ()
 main = drawingOf (pictureOfBoxes someBoxCoords)
