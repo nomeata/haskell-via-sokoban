@@ -8,12 +8,12 @@ CODE=$(wildcard code/*.hs)
 code/%.dhash code/%.hash: code/%
 	./upload.sh $<
 
-%.subst.md: %.md $(patsubst %,%.hash,$(CODE)) $(patsubst %,%.dhash,$(CODE))
+%.md.subst: %.md $(patsubst %,%.hash,$(CODE)) $(patsubst %,%.dhash,$(CODE))
 	./subst.pl $< >> $@.tmp
 	echo >> $@.tmp
 	mv $@.tmp $@
 
-haskell-via-sokoban.md: $(patsubst %.md,%.subst.md,$(SECTIONS)) 
+haskell-via-sokoban.md: $(patsubst %.md,%.md.subst,$(SECTIONS)) 
 	rm -f $@
 	cat $^ > $@
 	chmod -w $@
@@ -42,6 +42,6 @@ haskell-via-sokoban.html: haskell-via-sokoban.md
 #	cd files; tree -H '.' -L 1 --noreport --charset utf-8 > index.html
 
 clean:
-	rm -f haskell-via-sokoban.md haskell-via-sokoban.html *.subst.md *.bak
+	rm -f haskell-via-sokoban.md haskell-via-sokoban.html *.md.subst *.bak
 
 .DELETE_ON_ERROR:
