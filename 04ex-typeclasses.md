@@ -46,7 +46,7 @@ These should do what their names and types imply:
 Graph search
 ------------
 
-(Read exercise 3 first, to understand why this is an interesting function.)
+(Read the next exercise (closedness of mazes) first, to understand why this is an interesting function.)
 
 The algorithm you have to implement below can be phrased very generally, and we want it to be general. So implement a function
 ```haskell
