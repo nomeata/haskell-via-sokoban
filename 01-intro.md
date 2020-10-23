@@ -351,7 +351,7 @@ From the resulting picture we can learn a few things
  *  The `&` operator combines two pictures, but puts them in the same spot, with
     the picture given as the left argument on top of the picture given as the
     right argument.
- *  The function `colored green` applied only to `(solidCircle 1)`, and *not* to
+ *  The function `colored green` is applied only to `(solidCircle 1)`, and *not* to
     `(solidCircle 1) & solidCircle 2` (otherwise, both circles would be green).
     From this we deduce an important fact about Haskell syntax that you should
     remember well:
