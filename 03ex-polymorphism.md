@@ -31,7 +31,7 @@ Define a value `initialState :: State` for the initial state:
  * Use an arbitrary direction.
  * Find where the boxes are.
 
-The latter is a bit tricky: The information is there (in the definition of `maze`), but not very accessible. Do **not** just write down the list of coordinates by hand! Instead, define a value `initialBoxes :: List Coord` that is calculated from looking at each coordinate (going from -10 to 10, as usual), and adding that coordinate to the list if there is a box.
+The latter is a bit tricky: The information is there (in the definition of `maze`), but not very accessible. Do **not** just write down the list of coordinates by hand! Instead, define a value `initialBoxes :: List Coord` that is calculated by looking at each coordinate (going from -10 to 10, as usual), and adding that coordinate to the list if there is a box.
 
 There are two ways of doing that. Pick one (but try to understand both):
 
@@ -42,7 +42,7 @@ There are two ways of doing that. Pick one (but try to understand both):
     which appends two lists. Then you can implement `initialBoxes` similar to
     `pictureOfMaze`, using `appendList` instead of `(&)`.
 
-    This is called *folding `appendList` over the set of coordinate*.
+    This is called *folding `appendList` over the set of coordinates*.
 
  2. Alternatively, in your recursions that traverse the coordinate space, pass
     a list down as a parameter. Initially, this list is `Empty`. If the current

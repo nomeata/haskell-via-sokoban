@@ -1,5 +1,3 @@
-<!--  solution: https://code.world/haskell#PTgYAt3TMBGGE2-RHL69ANw -->
-
 Type classes
 ============
 
@@ -7,7 +5,7 @@ In the last set of exercises, you have developed a working implementation of Sok
 
 While implementing it, some of you might have wished to be able to use the equality operator (`(==)`) on your own data types, such as `Coord` or `Tile`. But you could not and had to work around it using `case` expressions, helper functions or functions like `eqCoord`.
 
-But you may have already observed that `(==)` can be used with multiple types: `Integer`, `Double`, `Bool` (although you should not use it with `Double`!). And I claimed that `Bool` is not special. So there must be a way of using `(==)` with, say, `Coord`.
+But you may have already observed that `(==)` can be used with multiple types: `Integer`, `Double`, `Bool`. (Although you should not use it with `Double` – at least not before you have read [What Every Computer Scientist Should Know About Floating-Point Arithmetic](https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html)!). And I claimed that `Bool` is not special. So there must be a way of using `(==)` with, say, `Coord`.
 
 Maybe the error message that we see if we try to use it, can shed some light on this:
 ```
@@ -56,7 +54,7 @@ instance Eq a => Eq [a]
 The `Eq Coord` instance
 ------------------------
 
-Now that we know what method the class as, we can write our own instance for `Coord`:
+Now that we know which methods the class has, we can write our own instance for `Coord`:
 ```haskell
 instance Eq Coord where
   C x1 y1 == C x2 y2 = x1 == x2 && y1 == y2

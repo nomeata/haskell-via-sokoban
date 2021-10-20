@@ -10,12 +10,7 @@ logical task, and reuse functions as necessary.
 In these exercises, you will be creating lots of drawing
 and animations. The exercises will describe what you have to do, and
 maybe give an (simple) example, but you are always welcome to make it
-prettier and more shiny. This is all good as long as you do not
-*simplify* the task this way, or make the code too convoluted. Extra
-effort in that direction contributes towards your participation score.
-
-All homework this week can be performed within the web IDE
-<https://code.world/haskell>.
+prettier and more shiny.
 
 Traffic lights
 --------------

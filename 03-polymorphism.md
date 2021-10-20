@@ -250,11 +250,11 @@ will want to manage a list of coordinates of these boxes, and clearly, this
 is going to be part of our state.
 
 Our code should work with any number of boxes (as various levels have various
-number of boxes). What type is suitable to store any number of coordinates? Or
+number of boxes). Which type is suitable to store any number of coordinates? Or
 -- as you would expect after we talked about polymorphism -- any number of
 values of some arbitrary type?
 
-### Lists
+## Lists
 
 Of course, the standard library comes with a suitable data type, but let us,
 for the sake of learning, define it ourselves. Just like we used recursion in
@@ -369,8 +369,8 @@ Granted, the code did not get much smaller. But we did gain a generally useful
 Case expressions
 ================
 
-Finally, a small syntactic gimmick, that you might find useful when doing the
-homework.
+Finally, a small syntactic gimmick which you might find useful when doing the
+exercises.
 
 So far, the only place where we can do pattern matching is when we define a
 function. This is sufficient, but sometimes annoying, as it requires local

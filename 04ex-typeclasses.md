@@ -109,12 +109,14 @@ Let `exercise3 :: IO ()` be the visualization of `isClosed` applied to every ele
 Multi-Level Sokoban
 -------------------
 
-Extend your game from the last exercise (or start with [the example solution](EDIT(code/03ex-complete.hs)) to implement multi-level sokoban.
+Extend your game from the last exercise (or start with [the example solution](EDIT(code/03ex-complete.hs))) to implement multi-level sokoban.
 
   * Extend the `State` with a field of type `Integer`, to indicate the current
     level (start counting at 1).
+
   * The initial state should start with level 1. The initial coordinate is
     obtained from the entry in `mazes`.
+
   * Your `handle` and `draw` functions will now need to take an additional
     argument, the current maze, of type `Coord -> Tile`, instead of referring to
     a top-level `maze` function. Any helper functions (e.g. `noBoxMaze`) will
@@ -140,6 +142,7 @@ Extend your game from the last exercise (or start with [the example solution](ED
     There is some code to be shared with the calculation of the initial state!
     Maybe the same function `loadLevel :: Integer -> State` can be used in both
     situations.
+
   * If the level is solved and the current level is the last, show a different
     message (e.g. “All done” instead of “You won”).
 
