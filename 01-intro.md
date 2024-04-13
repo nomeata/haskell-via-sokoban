@@ -269,7 +269,7 @@ booleans, tuples, lists and strings, but we start with pictures. These are of co
 Every picture is a value of type, well, `Picture`. We have seen two such values
 so far: `blank` and `solidCircle 1`. There are many more primitive pictures,
 for rectangles, polygons, lines, arcs and text. To get an overview, see the
-Help button on CodeWorld: From there you can reach the documentation of the
+Help or Guide button on CodeWorld: From there you can reach the documentation of the
 `CodeWorld` API.
 
 If we look at the documentation for `solidCircle`, it says
@@ -319,7 +319,7 @@ ourPicture = colored green (solidCircle 1)
 
 As you see, even multiple arguments are just written after the function, separated by a space, and complex arguments need to be enclosed in parentheses.
 
-So what is the deal with two two arrows? Why not just
+So what is the deal with the two arrows? Why not just
 `Color Picture -> Picture`? It might seem strange to you now, but there
 is a very deep and beautiful reason, to which we will get in a few weeks; for
 now you just have to take my word for it!
