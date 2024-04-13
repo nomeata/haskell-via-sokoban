@@ -445,7 +445,7 @@ animations. What is an animation? It is a picture that changes over time, where
 time can conveniently be understood as the number of seconds since the start of
 the animation.
 
-In imperative language, one would probably have a `getCurrentTime()` function
+In an imperative language, one would probably have a `getCurrentTime()` function
 and call that from somewhere in our drawing generating. This is not possible nor
 desirable in a pure functional language, as it would be a *hidden side effect*.
 Instead, the time is provided as a parameter.
@@ -475,7 +475,7 @@ From looking at the code ([open on CodeWorld](EDIT(code/trafficController.hs))) 
    writing `True` here.
  * There is a function called `round` and `mod`. `round` is used in the normal,
    prefix way, but we turned `mod` into an operator by putting backticks around
-   it (`` `mod` ``). You can do that two any function called with two arguments.
+   it (`` `mod` ``). You can do that to any function called with two arguments.
  * We are now working with numbers here, so let us take a quick detour into
    Haskell's numeric types.
 
