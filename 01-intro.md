@@ -599,7 +599,7 @@ use the recursive function any more, and we have the recursive cases, which do.
 
 What happens if I try to draw `lights (-1)`? What if I swap the arguments to `(&)`?
 
-Of course, there is a lot of logic involved in `lights` that that is not
+Of course, there is a lot of logic involved in `lights` that is not
 specific to traffic lights, so this does call out for some abstraction. We will
 abstract out both the picture to draw, and how far we shift to the right in
 every step ([open on CodeWorld](EDIT(code/multiple-trafficlights-spread.hs))):
