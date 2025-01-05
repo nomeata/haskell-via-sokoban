@@ -19,8 +19,8 @@ extraMazes :: List Maze
 extraMazes = …
 ```
 
-More polymorphic list function
-------------------------------
+More polymorphic list functions
+-------------------------------
 
 Implement these generally useful functions:
 ```haskell
